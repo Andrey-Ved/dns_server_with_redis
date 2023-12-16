@@ -7,7 +7,7 @@ Simple DNS server with Redis backend
 Based on [dnserver by Samuel Colvin](https://github.com/samuelcolvin/dnserver)
   
   
-# Launching in Docker
+### Launching in Docker
 
 Create and start container:
 ```bash
