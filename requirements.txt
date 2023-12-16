@@ -1,0 +1,5 @@
+pytest==7.4.3
+dnslib==0.9.23
+dynaconf==3.2.4
+redis==5.0.1
+cryptography==41.0.7

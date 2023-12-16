@@ -1,0 +1,40 @@
+version: "3.8"
+
+services:
+  dns_redis:
+    image: redis:7.2.3
+    container_name: dns_redis
+    env_file:
+      - .env
+    restart: unless-stopped
+    command: redis-server --requirepass ${REDIS_PASSWORD}
+    ports:
+      - "6379:6379"
+    networks:
+      - custom
+
+  dns_server:
+    image: dns_server
+    build:
+      context: .
+    container_name: dns_server
+    env_file:
+      - .env
+    command: python -m app
+    volumes:
+      - ./zones.json:/dns_server/zones.json
+      - ./non-dev_config.json:/dns_server/config.json
+    ports:
+      - "53:53/udp"
+      - "53:53/tcp"
+    networks:
+      - custom
+    depends_on:
+      - dns_redis
+
+networks:
+  custom:
+    driver: bridge
+
+volumes:
+  dns_server:

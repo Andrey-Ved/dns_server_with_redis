@@ -1,0 +1,14 @@
+{
+  "dns": {
+    "upstream": "8.8.8.8",
+    "port": 53,
+    "zones_file": "zones.json",
+    "cache_expiration_time_m": 30
+  },
+  "redis": {
+    "host": "localhost",
+    "port": 6379,
+    "db": 0,
+    "prefix": "dns-serv>>> "
+  }
+}
