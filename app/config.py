@@ -2,7 +2,7 @@ import logging
 
 from cryptography.fernet import Fernet  # noqa
 from dynaconf import Dynaconf
-from os import path as os_path
+from os.path import dirname, sep, abspath
 from pathlib import Path
 
 
@@ -12,15 +12,18 @@ CONFIGS_DIR = 'configs'
 
 
 def add_path(
-        path: str | Path,
+        additional_path: str | Path,
         file_name: str | Path
 ) -> str:
-    root_path = os_path.dirname(
-        os_path.dirname(
-            os_path.abspath(__file__)
+    root_path = dirname(
+        dirname(
+            abspath(__file__)
         )
     )
-    return root_path + os_path.sep + path + os_path.sep + file_name
+    if additional_path:
+        return root_path + sep + additional_path + sep + file_name
+
+    return root_path + sep + file_name
 
 
 def settings_init(
