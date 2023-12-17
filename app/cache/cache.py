@@ -8,8 +8,8 @@ from app.config import logger, settings
 _cache = RedisCache(
     expiration_time=settings.dns.cache_expiration_time_s,
     prefix=settings.redis.prefix,
-    encryption_secret=settings.redis_secret,
-    redis_connection_kwargs=settings.redis_connection_kwargs,
+    encryption_secret=settings.redis.secret,
+    redis_connection_kwargs=settings.redis.connection_kwargs,
 )
 
 

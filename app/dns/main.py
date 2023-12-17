@@ -1,29 +1,34 @@
 from __future__ import annotations as _annotations
 
-import os
-import signal
+from os import getpid
+from pathlib import Path
+from signal import signal, Signals, SIGTERM, SIGINT
 from time import sleep
 
 from app.dns.server import DNSServer
-from app.config import logger, settings
+from app.config import logger
 
 
 def handle_sig(signum, frame): # noqa
-    logger.info(f'pid={os.getpid()}, '
-                f'got signal: {signal.Signals(signum).name}, '
+    logger.info(f'pid={getpid()}, '
+                f'got signal: {Signals(signum).name}, '
                 f'stopping...')
 
     raise KeyboardInterrupt
 
 
-def main():
-    signal.signal(signal.SIGTERM, handle_sig)
-    signal.signal(signal.SIGINT, handle_sig)
+def main(
+        port: int,
+        upstream: str,
+        zones_file: str | Path,
+):
+    signal(SIGTERM, handle_sig)
+    signal(SIGINT, handle_sig)
 
     server = DNSServer.from_file(
-        port=settings.dns.port,
-        upstream=settings.dns.upstream,
-        zones_file=settings.dns.zones_file,
+        port=port,
+        upstream=upstream,
+        zones_file=zones_file,
     )
     server.start()
 

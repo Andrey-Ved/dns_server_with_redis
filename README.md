@@ -6,24 +6,29 @@ Simple DNS server with Redis backend
 
 Based on [dnserver by Samuel Colvin](https://github.com/samuelcolvin/dnserver)
   
+
+### Before you start: 
+- copy env_dist to .env (with dot) 
+- replace default values with your own
   
+
 ### Launching in Docker
 
 Create and start container:
 ```bash
-$ docker-compose up
+$ docker-compose --env-file ./configs/.env up 
 ```
 Stop lifted containers:
 ```bash
-$ docker-compose stop
+$ docker-compose --env-file ./configs/.env stop
 ```
 Start stopped containers:
 ```bash
-$ docker-compose start
+$ docker-compose --env-file ./configs/.env start
 ```
 Stop and delete containers and network:
 ```bash
-$ docker-compose down
+$ docker-compose --env-file ./configs/.env down
 ```
 Remove app image:
 ```bash
