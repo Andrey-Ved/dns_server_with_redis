@@ -3,7 +3,7 @@ from os import getpid
 from redis import Redis, ConnectionPool
 from typing import TypedDict
 
-from app.config import logger
+from app.logger import logger
 
 
 class RedisConnectionKwargs(TypedDict):

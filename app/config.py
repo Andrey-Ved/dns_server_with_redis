@@ -1,5 +1,3 @@
-import logging
-
 from cryptography.fernet import Fernet  # noqa
 from dynaconf import Dynaconf
 from os.path import dirname, sep, abspath
@@ -57,14 +55,3 @@ settings = settings_init(
     dotenv_file=DOTENV_FILE,
     configs_dir=CONFIGS_DIR,
 )
-
-
-handler = logging.StreamHandler()
-handler.setLevel(logging.INFO)
-handler.setFormatter(
-    logging.Formatter('%(asctime)s: %(message)s', datefmt='%H:%M:%S')  # noqa
-)
-
-logger = logging.getLogger(__name__)
-logger.addHandler(handler)
-logger.setLevel(logging.INFO)

@@ -5,8 +5,9 @@ from pathlib import Path
 from signal import signal, Signals, SIGTERM, SIGINT
 from time import sleep
 
+from app.cache.redis_DAO import RedisCache
 from app.dns.server import DNSServer
-from app.config import logger
+from app.logger import logger
 
 
 def handle_sig(signum, frame): # noqa
@@ -20,6 +21,7 @@ def handle_sig(signum, frame): # noqa
 def main(
         port: int,
         upstream: str,
+        cache: dict | RedisCache,
         zones_file: str | Path,
 ):
     signal(SIGTERM, handle_sig)
@@ -28,6 +30,7 @@ def main(
     server = DNSServer.from_file(
         port=port,
         upstream=upstream,
+        cache=cache,
         zones_file=zones_file,
     )
     server.start()

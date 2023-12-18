@@ -2,7 +2,7 @@ from cryptography.fernet import Fernet  # noqa
 from functools import wraps
 
 from app.cache.redis_connector import RedisClient, RedisConnectionKwargs
-from app.config import logger
+from app.logger import logger
 
 
 def get_full_class_name(obj) -> str:
