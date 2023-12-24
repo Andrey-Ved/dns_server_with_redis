@@ -10,8 +10,8 @@ CONFIGS_DIR = 'configs'
 
 
 def add_path(
-        additional_path: str | Path,
-        file_name: str | Path
+        file_name: str | Path,
+        additional_path: str | Path | None = None,
 ) -> str:
     root_path = dirname(
         dirname(
@@ -30,13 +30,13 @@ def settings_init(
         configs_dir: str | Path,
 ):
     dynaconf = Dynaconf(
-        settings_files=[add_path(configs_dir, config_file), ],
+        settings_files=[add_path(config_file, configs_dir), ],
         load_dotenv=True,
         envvar_prefix=False,
-        dotenv_path=add_path(configs_dir, dotenv_file)
+        dotenv_path=add_path(dotenv_file, configs_dir)
     )
 
-    dynaconf.dns.zones_file = add_path(configs_dir, dynaconf.dns.zones_file)
+    dynaconf.dns.zones_file = add_path(dynaconf.dns.zones_file, configs_dir)
     dynaconf.dns.cache_expiration_time_s = dynaconf.dns.cache_expiration_time_m * 60
 
     dynaconf.redis.secret = dynaconf.redis_secret
